@@ -150,7 +150,8 @@ Vous avez à gérer l'organisation d'un festival de musique dans ses diverses di
 
 | Cas 28 |
 |---|
-| En tant que connaître l'accessibilité des lieux de concert |
+| En tant que spectateur |
+| J'aimerais connaître l'accessibilité des lieux de concert |
 
 
 ## Requêtes
