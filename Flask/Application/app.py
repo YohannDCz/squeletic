@@ -14,7 +14,7 @@ def hello(name=None):
     # return f"<p>Hello, {name}</p>"
 
 
-@app.route('/authors')
+@app.route('/products')
 def models():
     fields = ['first_name', 'last_name', 'biography']
     with connect(engineer()) as connector:
@@ -22,4 +22,3 @@ def models():
         response = [serialize(data, fields) for data in result.all()]
         #response = [dict(row) for row in result.all()]
         return json.dumps(response)
-

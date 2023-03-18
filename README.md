@@ -27,7 +27,6 @@ Dans le dossier [Flask](Flask/), vous trouverez toute la documentation pour cré
 
 Il existe également une peute base de code pour un serveur Flask d'exemple.
 
-
 ## Ressources globales pour le cours
 
 ### Ressources système
