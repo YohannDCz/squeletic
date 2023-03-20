@@ -1,0 +1,43 @@
+G1 ; 
+        1-SELECT first_name,last_name , birthdate FROM artist ORDER BY birthdate ASC
+
+        2-select name, max_spectators from place order by max_spectators asc;
+
+        3-select id from event order by start_time limit 5 ;
+        
+        #pour un resultat plus précis sans les 'rencontres ' == select id from event where discr = 'concert' order by start_time limit 5 ;
+
+G2 ;
+        1-select first_name,last_name,country from spectateur where country = 'croatia'
+
+        2-select first_name,last_name,birthdate from artist where substring(birthdate,1,4)>= 1970 and substring(birthdate,1,4) <= 1990 ;
+
+        3- select * from spectateur where substring(last_name,1,1) = 'b';
+
+        4-  select id,date from event where discr = 'concert' order by date asc;
+G3 ; 
+        1-select artist.id,artist.first_name ,last_name, concert_part.concert_id from concert_part inner join artist on artist.id = concert_part.artist_id;
+
+        2-select place.id as place_id , event.id as event_id from event inner join place on place.id = event.place_id;
+
+        3-select artist_group.group_id , artist.instrument from artist_group inner join artist on artist.id = artist_group.artist_id order by artist_group.group_id;
+
+        4-select spectateur.first_name , spectateur.last_name,spectateur_artist.artist_id as Artist,event.id as Concert,event.place_id as Place ,event.start_time from spectateur inner join spectateur_artist on spectateur.first_name = "retha" and spectateur.id = spectateur_artist.spectateur_id inner join event;
+
+        5-
+
+        6-select artist.first_name,artist.last_name,concert_part.concert_id,concert_part.status from concert_part inner join artist on artist.id = concert_part.artist_id;
+
+        7-select place.id,place.name,technical_constraints.equipment from technical_constraints_place inner join technical_constraints on technical_constraints.id = technical_constraints_place.technical_constraints_id inner join place on place.id = technical_constraints_place.place_id;
+
+        # Or 
+        7 2.0 - select place.id,place.name,technical_constraints.equipment,technical_constraints.description from technical_constraints_place inner join technical_constraints on technical_constraints.id = technical_constraints_place.technical_constraints_id inner join place on place.id = technical_constraints_place.place_id;
+
+        8-select group.id as group_id,group.name as group_name, event.place_id, place.name as place_name from event inner join concert_part on event.id = concert_part.concert_id inner join `group` on group.id = concert_part.artist_id inner join place;
+
+G4 
+        1-select count(artist_id),group_id from artist_group group by group_id;
+
+        2-select count(spectator_id),concert_id from ticket group by concert_id;
+
+        3-

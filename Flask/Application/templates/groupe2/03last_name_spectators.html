@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <h3>Name and birthday of spectators beginning with B born before 1970.</h3>
+    <ol>
+    {% for item in response %}
+        <li>
+          <ul>
+            <li><u>Name:</u> <span>{{item[0]}}</span></li>
+            <li><u>Surname:</u> <span>{{item[1]}}</span></li> 
+            <li><u>Birthdate:</u> <span> {{item[2]}}</span></li>
+          </ul>
+        </li>
+      {% endfor %}
+      </ol>
+  </body>
+</html>
