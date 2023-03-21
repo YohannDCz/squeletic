@@ -245,3 +245,45 @@ def ticket_number():
 # 4. Lister la moyenne du montant des ventes pour chaque concert
 # 5. Lister les concerts qui ont rassemblé plus de 100 spectateurs
 
+
+######################################################################################################################################
+# GROUPE 5
+######################################################################################################################################
+
+# 1. Lister les nom, prénom de ceux qui font le festival : Artistes et Bénévoles.
+# SELECT first_name, last_name FROM artist
+# UNION ALL
+# SELECT first_name, last_name FROM staff;
+
+@app.route("/artists_and_volunteers")
+def artist_and_volunteers():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT first_name, last_name FROM artist UNION ALL SELECT first_name, last_name FROM staff"))
+    response = [data for data in result.all()]
+    return render_template('/groupe5/01artists_and_volunteers.html', response=response)
+
+
+# 2. Pour les téméraires: reprenez la requête précédente et ajouter une colonne indiquant le rôle(artiste ou bénévole) de chacun.
+# SELECT first_name, last_name, 'artiste' AS role FROM artist
+# UNION ALL
+# SELECT first_name, last_name, 'benevoles' AS role FROM staff;
+
+@app.route("/artists_and_volunteers2")
+def artists_and_volunteers2():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT first_name, last_name, 'artiste' AS role FROM artist UNION ALL SELECT first_name, last_name, 'benevoles' AS role FROM staff"))
+    response = [data for data in result.all()]
+    return render_template('/groupe5/02artists_and_volunteers.html', response=response)
+
+
+######################################################################################################################################
+# GROUPE 6
+######################################################################################################################################
+
+# 1. Afficher les groupes qui passent en seconde partie de concert.
+# 2. Lister les gens qui ont dépensé plus que la moyenne du panier d’achat.
+# 3. Recommandation: Trouver des concerts qui pourraient intéresser un spectateur.
+
+######################################################################################################################################
