@@ -154,19 +154,94 @@ def artist_group_instrument():
 
 
 # 4. Lister les concerts auxquels va assister ** Retha Dookie**, avec la liste des membres du groupe, le lieu et la date/heure
-# 4-select spectateur.first_name, spectateur.last_name, spectateur_artist.artist_id as Artist, event.id as Concert, event.place_id as Place, event.start_time from spectateur inner join spectateur_artist on spectateur.first_name = "retha" and spectateur.id = spectateur_artist.spectateur_id inner join event
+# SELECT spectateur.first_name, spectateur.last_name, spectateur_artist.artist_id AS Artist, event.id AS Concert, event.place_id AS Place, event.start_time FROM spectateur INNER JOIN spectateur_artist ON spectateur.first_name = "retha" AND spectateur.id = spectateur_artist.spectateur_id INNER JOIN event;
+
+@app.route("/rethadooley")
+def rethadooley():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT spectateur_artist.artist_id AS Artist, event.id AS Concert, event.place_id AS Place, event.start_time FROM spectateur INNER JOIN spectateur_artist ON spectateur.first_name = 'retha' AND spectateur.id=spectateur_artist.spectateur_id INNER JOIN event"))
+    response = [data for data in result.all()]
+    return render_template('/groupe3/04rethadooley.html', response=response)
+
+
 # 5. Calculer le panier moyen des ventes
-# 5-select count(ticket.spectator_id), event.start_time from ticket inner join event on event.id = ticket.concert_id group by event.start_time
-# 6. Lister qui est en première et seconde partie de chaque concert(et indiquer s’il n’y a personne)
-# 6-select artist.first_name, artist.last_name, concert_part.concert_id, concert_part.status from concert_part inner join artist on artist.id = concert_part.artist_id
+# SELECT COUNT(ticket.spectator_id), event.start_time FROM ticket INNER JOIN event ON event.id = ticket.concert_id GROUP BY event.start_time;
+
+@app.route("/average_basket")
+def average_basket():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT COUNT(ticket.spectator_id), event.start_time FROM ticket INNER JOIN event ON event.id = ticket.concert_id GROUP BY event.start_time"))
+    response = [data for data in result.all()]
+    return render_template('/groupe3/05average_basket.html', response=response)
+
+
+# 6. Lister qui est en première et seconde partie de chaque concert(et indiquer s’il n’y a personne).
+# SELECT artist.first_name, artist.last_name, concert_part.concert_id, concert_part.status FROM concert_part INNER JOIN artist ON artist.id = concert_part.artist_id;
+
+@app.route("/first_and_second_part")
+def first_and_second_part():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT artist.first_name, artist.last_name, concert_part.concert_id, concert_part.status FROM concert_part INNER JOIN artist ON artist.id = concert_part.artist_id"))
+    response = [data for data in result.all()]
+    return render_template('/groupe3/06first_and_second_part.html', response=response)
+
+
 # 7. Lister les salles/lieux et les contraintes techniques de chacune.
-# 7-select place.id, place.name, technical_constraints.equipment from technical_constraints_place inner join technical_constraints on technical_constraints.id = technical_constraints_place.technical_constraints_id inner join place on place.id = technical_constraints_place.place_id
-# # Or
-# 7 2.0 - select place.id, place.name, technical_constraints.equipment, technical_constraints.description from technical_constraints_place inner join technical_constraints on technical_constraints.id = technical_constraints_place.technical_constraints_id inner join place on place.id = technical_constraints_place.place_id
+# SELECT place.id, place.name, technical_constraints.equipment, technical_constraints.description FROM technical_constraints_place INNER JOIN technical_constraints ON technical_constraints.id = technical_constraints_place.technical_constraints_id INNER JOIN place ON place.id = technical_constraints_place.place_id;
+
+@app.route("/hall_and_location")
+def hall_and_location():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT place.id, place.name, technical_constraints.equipment, technical_constraints.description FROM technical_constraints_place INNER JOIN technical_constraints ON technical_constraints.id = technical_constraints_place.technical_constraints_id INNER JOIN place ON place.id = technical_constraints_place.place_id"))
+    response = [data for data in result.all()]
+    return render_template('/groupe3/07hall_and_location.html', response=response)
+
+
 # 8. Lister les groupes  et les salles où ils se produisent
-# 8-select group.id as group_id, group.name as group_name, event.place_id, place.name as place_name from event inner join concert_part on event.id = concert_part.concert_id inner join `group` on group.id = concert_part.artist_id inner join place
+# SELECT group.id as group_id, group.name AS group_name, event.place_id, place.name AS place_name FROM event INNER JOIN concert_part ON event.id = concert_part.concert_id INNER JOIN `group` ON group.id = concert_part.artist_id INNER JOIN place;
+
+@app.route("/groups_and_location")
+def groups_and_location():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT group.id as group_id, group.name AS group_name, event.place_id, place.name AS place_name FROM event INNER JOIN concert_part ON event.id = concert_part.concert_id INNER JOIN `group` ON group.id = concert_part.artist_id INNER JOIN place"))
+    response = [data for data in result.all()]
+    return render_template('/groupe3/08groups_and_location.html', response=response)
 
 
-# G4
-# 1-select count(artist_id), group_id from artist_group group by group_id
-# 2-select count(spectator_id), concert_id from ticket group by concert_id
+######################################################################################################################################
+# GROUPE 4
+######################################################################################################################################
+
+# 1. Lister les groupes et leur nombre de membres.
+# SELECT COUNT(artist_id), group_id FROM artist_group GROUP BY group_id
+
+@app.route("/groups")
+def groups():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT COUNT(artist_id), group_id FROM artist_group GROUP BY group_id"))
+    response = [data for data in result.all()]
+    return render_template('/groupe4/01groups.html', response=response)
+
+
+# 2. Lister les concerts en indiquant le nombre de places vendues.
+# SELECT COUNT(spectator_id), concert_id FROM ticket GROUP BY concert_id
+
+@app.route("/ticket_number")
+def ticket_number():
+    with connect(engineer()) as connector:
+        result = connector.execute(
+            text("SELECT COUNT(spectator_id), concert_id FROM ticket GROUP BY concert_id"))
+    response = [data for data in result.all()]
+    return render_template('/groupe4/02ticket_number.html', response=response)
+
+
+# 3. Lister le total des ventes pour chaque journée de festival(en se basant sur `startTime`)
+# 4. Lister la moyenne du montant des ventes pour chaque concert
+# 5. Lister les concerts qui ont rassemblé plus de 100 spectateurs
+

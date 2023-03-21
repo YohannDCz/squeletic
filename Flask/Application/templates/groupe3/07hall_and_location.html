@@ -7,17 +7,19 @@
     <title>Document</title>
   </head>
   <body>
-    <h3>Artists by concert id.</h3>
+    <h2>Nombre de spectateurs et début de l'évènement</h2>
     <table border="1" cellpadding="10" cellspacing="0">
       <tr>
-        <th><strong>Artist ID</strong></th>
-        <th><strong>Artist Name</strong></th>
-        <th><strong>Concert Name</strong></th>
+        <th><strong>Location name</strong></th>
+        <th><strong>Location ID</strong></th>
+        <th><strong>Technical constraint</strong></th>
+        <th><strong>Technical constraint Description</strong></th>
       </tr>
       {% for item in response %}
       <tr>
+        <td>{{ item[1] }}</td>
         <td>{{ item[0] }}</td>
-        <td>{{ item[1] }} {{ item[2] }}</td>
+        <td>{{ item[2] }}</td>
         <td>{{ item[3] }}</td>
       </tr>
       {% endfor %}

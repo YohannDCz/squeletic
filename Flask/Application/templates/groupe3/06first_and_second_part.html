@@ -7,20 +7,22 @@
     <title>Document</title>
   </head>
   <body>
-    <h3>Artists by concert id.</h3>
+    <h3>Artists by concert id and their status.</h3>
     <table border="1" cellpadding="10" cellspacing="0">
       <tr>
-        <th><strong>Artist ID</strong></th>
-        <th><strong>Artist Name</strong></th>
-        <th><strong>Concert Name</strong></th>
+        <th><strong>Artist</strong></th>
+        <th><strong>Concert ID</strong></th>
+        <th><strong>Status</strong></th>
       </tr>
       {% for item in response %}
       <tr>
-        <td>{{ item[0] }}</td>
-        <td>{{ item[1] }} {{ item[2] }}</td>
+        <td>{{ item[0] }} {{ item[1] }}</td>
+        <td>{{ item[2] }}</td>
         <td>{{ item[3] }}</td>
       </tr>
       {% endfor %}
     </table>
   </body>
 </html>
+
+<!-- 'artist.id', "artist.first_name", 'last_name', 'concert_part.concert_id' -->
